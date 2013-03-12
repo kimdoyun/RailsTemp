@@ -1,2 +1,24 @@
-worker_processes 4 # unicorn worker 갯수
-timeout 30 # 30초 이상 걸리는 worker 는 종료후 재시작
+worker_processes Integer(ENV["UNICORN_WORKERS"] || 3)
+timeout 30
+preload_app true
+
+before_fork do |server, worker|
+
+  Signal.trap 'TERM' do
+    puts 'Unicorn master intercepting TERM and sending myself QUIT instead'
+    Process.kill 'QUIT', Process.pid
+  end
+
+  defined?(ActiveRecord::Base) and
+    ActiveRecord::Base.connection.disconnect!
+end  
+
+after_fork do |server, worker|
+
+  Signal.trap 'TERM' do
+    puts 'Unicorn worker intercepting TERM and doing nothing. Wait for master to sent QUIT'
+  end
+
+  defined?(ActiveRecord::Base) and
+    ActiveRecord::Base.establish_connection
+end
