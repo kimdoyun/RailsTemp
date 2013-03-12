@@ -1,0 +1,6 @@
+<%= form_for [@post, @post.comments.build] do |f| %>
+	<tr>
+		<td colspan="2"><%= f.text_field :text, :size => '120' %></td>
+		<td><%= f.submit "댓글쓰기" %></td>
+	</tr>
+<%end%> 

@@ -1,0 +1,30 @@
+<center>
+	<h1>글보기</h1>
+	<table border="1">
+		<tr>
+			<td height="15" width="135">제목</td>
+			<td width="200"><%= @post.title%></td>
+			<td width="150">작성일</td>
+			<td width="250"><%= @post.created_at%></td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<%= @post.text%>
+			</td>
+		</tr>
+	</table><br>
+	<table border="1">
+		<tr>
+			<td colspan="3" width="750" align="center">댓글목록</td>
+		</tr>
+		<%= render @post.comments %>
+		<%= render "comments/form" %>
+	</table>
+	<p>  
+	<%= link_to "리스트로",posts_path%>
+	|
+	<%= link_to "수정하기",edit_post_path(@post)%>
+	|
+	<%= link_to "삭제",@post, :method => :delete, :confirm => "정말 지우시겠습니까?" %>
+</p>
+</center>

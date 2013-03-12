@@ -1,0 +1,25 @@
+<center><h1>루비 온 레일즈 테스트</h1>
+	<table border="1">
+		<tr align="center">
+			<td width="550" height="15">제목</td>
+			<td width="200">작성일</td>
+		</tr>
+	<% @posts.each do |post|%>
+		<tr>
+			<td height="15">&nbsp;<%= link_to post.title,post %></td>
+			<td><%= post.created_at%></td>
+		</tr>
+	<%end %>
+		<tr>
+			<td colspan="2" align="right">
+				<%=form_tag posts_path, :method => 'get' do %>
+				    <%= text_field_tag :search, params[:search] %>
+				    <%= submit_tag "검색", :name => nil %>
+				<%end %>
+			</td>
+		</tr>
+	</table>
+<p>
+	<%= link_to "새로 글쓰기",new_post_path%>
+</p>
+</center>

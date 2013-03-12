@@ -1,0 +1,5 @@
+<tr>
+	<td><%= comment.text %></td>
+	<td width="200"><%= comment.created_at %></td>
+	<td width="80"><%= link_to "댓글삭제",[@post,comment], :method => :delete, :confirm => "정말 지우시겠습니까?" %></td>
+</tr>
